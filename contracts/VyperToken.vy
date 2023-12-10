@@ -1,4 +1,4 @@
-# @version ^0.3.9
+# @version 0.3.11
 
 from vyper.interfaces import ERC20
 
@@ -101,11 +101,11 @@ def permit(owner: address, spender: address, amount: uint256, deadline: uint256,
 def _mint(_to: address, _value: uint256):
     self.balanceOf[_to] += _value
     self.totalSupply += _value
-    log Transfer(ZERO_ADDRESS, _to, _value)
+    log Transfer(empty(address), _to, _value)
 
 @internal
 def _burn(_from: address, _value: uint256):
     assert self.balanceOf[_from] >= _value
     self.balanceOf[_from] -= _value
     self.totalSupply -= _value
-    log Transfer(_from, ZERO_ADDRESS, _value)
+    log Transfer(_from, empty(address), _value)
