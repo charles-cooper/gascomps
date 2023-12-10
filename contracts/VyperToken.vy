@@ -55,7 +55,9 @@ def transfer(_to: address, _value: uint256) -> bool:
 
 @external
 def transferFrom(_from: address, _to: address, _value: uint256) -> bool:
-    self.allowance[_from][msg.sender] -= _value
+    new_allowance: uint256 = self.allowance[_from][msg.sender] - _value
+    self.allowance[_from][msg.sender] = new_allowance
+    log Approval(_from, msg.sender, new_allowance)
     self.balanceOf[_from] -= _value
     self.balanceOf[_to] += _value
     log Transfer(_from, _to, _value)
