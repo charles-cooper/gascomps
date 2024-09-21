@@ -1,4 +1,5 @@
-# @version ^0.3.9
+# pragma version ~=0.4.1
+# pragma experimental-codegen
 """
 @title Modern and Gas-Efficient ERC-20 + EIP-2612 Implementation
 @custom:contract-name ERC20
@@ -55,26 +56,26 @@
 
 # @dev We import and implement the `ERC20` interface,
 # which is a built-in interface of the Vyper compiler.
-from vyper.interfaces import ERC20
-implements: ERC20
+from ethereum.ercs import IERC20
+implements: IERC20
 
 
 # @dev We import and implement the `ERC20Detailed` interface,
 # which is a built-in interface of the Vyper compiler.
-from vyper.interfaces import ERC20Detailed
-implements: ERC20Detailed
+from ethereum.ercs import IERC20Detailed
+implements: IERC20Detailed
 
 
 # @dev We import and implement the `IERC20Permit`
 # interface, which is written using standard Vyper
 # syntax.
-import interfaces.IERC20Permit as IERC20Permit
+import snekmate.tokens.interfaces.IERC20Permit as IERC20Permit
 implements: IERC20Permit
 
 
 # @dev We import and implement the `IERC5267` interface,
 # which is written using standard Vyper syntax.
-from interfaces.IERC5267 import IERC5267
+from snekmate.utils.interfaces import IERC5267
 implements: IERC5267
 
 
@@ -206,7 +207,7 @@ event RoleMinterChanged:
     status: bool
 
 
-@external
+@deploy
 @payable
 def __init__(name_: String[25], symbol_: String[5], initial_supply_: uint256, name_eip712_: String[50], version_eip712_: String[20]):
     """
