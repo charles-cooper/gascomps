@@ -59,8 +59,8 @@ def snekmate(project, deployer, sender):
 
 
 @pytest.fixture
-def tokens(solady, vypertoken, snekmate, oztoken, weth9):
-    return solady, vypertoken, snekmate, oztoken, weth9
+def tokens(solady, vypertoken, snekmate, oztoken):
+    return solady, vypertoken, snekmate, oztoken
 
 def test_tokens(tokens, sender, recipient):
     for token in tokens:
